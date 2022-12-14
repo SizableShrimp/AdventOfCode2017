@@ -25,14 +25,21 @@ package me.sizableshrimp.adventofcode2017.util
 
 import it.unimi.dsi.fastutil.booleans.BooleanArrayList
 import it.unimi.dsi.fastutil.booleans.BooleanList
+import it.unimi.dsi.fastutil.bytes.ByteCollection
 import it.unimi.dsi.fastutil.chars.CharArrayList
+import it.unimi.dsi.fastutil.chars.CharCollection
 import it.unimi.dsi.fastutil.chars.CharList
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList
+import it.unimi.dsi.fastutil.doubles.DoubleCollection
 import it.unimi.dsi.fastutil.doubles.DoubleList
+import it.unimi.dsi.fastutil.floats.FloatCollection
 import it.unimi.dsi.fastutil.ints.IntArrayList
+import it.unimi.dsi.fastutil.ints.IntCollection
 import it.unimi.dsi.fastutil.ints.IntList
 import it.unimi.dsi.fastutil.longs.LongArrayList
+import it.unimi.dsi.fastutil.longs.LongCollection
 import it.unimi.dsi.fastutil.longs.LongList
+import java.lang.IllegalArgumentException
 
 fun <T> Iterable<T>.splitOn(splitter: (T) -> Boolean): List<List<T>> {
     val result = ArrayList<List<T>>()
@@ -64,3 +71,179 @@ fun List<String>.toDoubles(): DoubleList = this.mapTo(DoubleArrayList(this.size)
 fun List<String>.toBooleans(): BooleanList = this.mapTo(BooleanArrayList(this.size), String::toBoolean)
 
 fun List<String>.toChars(): CharList = this.mapTo(CharArrayList(this.size)) { it[0] }
+
+fun IntCollection.max(): Int {
+    val iterator = this.intIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextInt()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextInt()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun LongCollection.max(): Long {
+    val iterator = this.longIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextLong()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextLong()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun CharCollection.max(): Char {
+    val iterator = this.iterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextChar()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextChar()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun ByteCollection.max(): Byte {
+    val iterator = this.iterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextByte()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextByte()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun DoubleCollection.max(): Double {
+    val iterator = this.doubleIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextDouble()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextDouble()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun FloatCollection.max(): Float {
+    val iterator = this.iterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var max = iterator.nextFloat()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextFloat()
+        if (num > max)
+            max = num
+    }
+
+    return max
+}
+
+fun IntCollection.min(): Int {
+    val iterator = this.intIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var min = iterator.nextInt()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextInt()
+        if (num < min)
+            min = num
+    }
+
+    return min
+}
+
+fun LongCollection.min(): Long {
+    val iterator = this.longIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var min = iterator.nextLong()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextLong()
+        if (num < min)
+            min = num
+    }
+
+    return min
+}
+
+fun CharCollection.min(): Char {
+    val iterator = this.iterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var min = iterator.nextChar()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextChar()
+        if (num < min)
+            min = num
+    }
+
+    return min
+}
+
+fun ByteCollection.min(): Byte {
+    val iterator = this.iterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var min = iterator.nextByte()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextByte()
+        if (num < min)
+            min = num
+    }
+
+    return min
+}
+
+fun DoubleCollection.min(): Double {
+    val iterator = this.doubleIterator()
+    if (!iterator.hasNext())
+        throw IllegalArgumentException()
+
+    var min = iterator.nextDouble()
+
+    while (iterator.hasNext()) {
+        val num = iterator.nextDouble()
+        if (num < min)
+            min = num
+    }
+
+    return min
+}

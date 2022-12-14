@@ -39,7 +39,6 @@ import it.unimi.dsi.fastutil.ints.IntList
 import it.unimi.dsi.fastutil.longs.LongArrayList
 import it.unimi.dsi.fastutil.longs.LongCollection
 import it.unimi.dsi.fastutil.longs.LongList
-import java.lang.IllegalArgumentException
 
 fun <T> Iterable<T>.splitOn(splitter: (T) -> Boolean): List<List<T>> {
     val result = ArrayList<List<T>>()
@@ -247,3 +246,9 @@ fun DoubleCollection.min(): Double {
 
     return min
 }
+
+fun IntRange.toIntList(): IntList = IntArrayList().also { for (i in this) it.add(i) }
+
+fun LongRange.toLongList(): LongList = LongArrayList().also { for (i in this) it.add(i) }
+
+fun CharRange.toCharList(): CharList = CharArrayList().also { for (i in this) it.add(i) }

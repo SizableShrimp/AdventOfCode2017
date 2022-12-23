@@ -46,8 +46,11 @@ class Day11 : Day() {
     }
 
     companion object {
-        private val DIRECTIONS = mapOf("n" to ZCoordinate.of(1, 0, -1), "ne" to ZCoordinate.of(0, 1, -1), "se" to ZCoordinate.of(-1, 1, 0),
-            "s" to ZCoordinate.of(-1, 0, 1), "sw" to ZCoordinate.of(0, -1, 1), "nw" to ZCoordinate.of(1, -1, 0))
+        private val DIRECTIONS = mapOf(
+            "n" to ZCoordinate.of(1, 0, -1), "ne" to ZCoordinate.of(0, 1, -1), "se" to ZCoordinate.of(-1, 1, 0),
+            "s" to ZCoordinate.of(-1, 0, 1), "sw" to ZCoordinate.of(0, -1, 1), "nw" to ZCoordinate.of(1, -1, 0)
+        )
+
         @JvmStatic
         fun main(args: Array<String>) {
             Day11().run()

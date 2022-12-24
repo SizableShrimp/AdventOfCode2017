@@ -49,9 +49,9 @@ public class Coordinate {
      * @return A new {@link Coordinate} object.
      */
     public static Coordinate parse(String coord) {
-        String[] arr = coord.split(",");
-        int x = Integer.parseInt(arr[0]);
-        int y = Integer.parseInt(arr[1]);
+        int commaIdx = coord.indexOf(',');
+        int x = Integer.parseInt(coord.substring(0, commaIdx));
+        int y = Integer.parseInt(coord.substring(commaIdx + 1));
         return new Coordinate(x, y);
     }
 
@@ -182,6 +182,41 @@ public class Coordinate {
 
     public Coordinate resolve(Direction direction, int count) {
         return resolve(direction.x * count, direction.y * count);
+    }
+
+    /**
+     * Returns a coordinate of the form (x, y + 1)
+     */
+    public Coordinate down() {
+        return resolve(Direction.SOUTH);
+    }
+
+    /**
+     * Returns a coordinate of the form (x, y - 1)
+     */
+    public Coordinate up() {
+        return resolve(Direction.NORTH);
+    }
+
+    /**
+     * Returns a coordinate of the form (x - 1, y)
+     */
+    public Coordinate left() {
+        return resolve(Direction.WEST);
+    }
+
+    /**
+     * Returns a coordinate of the form (x + 1, y)
+     */
+    public Coordinate right() {
+        return resolve(Direction.EAST);
+    }
+
+    /**
+     * Returns the value on the direction axis.
+     */
+    public int getAxis(Direction.Axis axis) {
+        return axis == Direction.Axis.X ? this.x : this.y;
     }
 
     @Override

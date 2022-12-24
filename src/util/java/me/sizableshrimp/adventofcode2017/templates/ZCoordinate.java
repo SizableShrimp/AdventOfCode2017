@@ -42,15 +42,20 @@ public class ZCoordinate {
      * @return A new {@link ZCoordinate} object.
      */
     public static ZCoordinate parse(String coord) {
-        String[] arr = coord.split(",");
-        int x = Integer.parseInt(arr[0]);
-        int y = Integer.parseInt(arr[1]);
-        int z = Integer.parseInt(arr[2]);
+        int commaIdx = coord.indexOf(',');
+        int x = Integer.parseInt(coord.substring(0, commaIdx));
+        int commaIdx2 = coord.indexOf(',', commaIdx + 1);
+        int y = Integer.parseInt(coord.substring(commaIdx + 1, commaIdx2));
+        int z = Integer.parseInt(coord.substring(commaIdx2 + 1));
         return new ZCoordinate(x, y, z);
     }
 
     public ZCoordinate resolve(ZCoordinate other) {
         return resolve(other.x, other.y, other.z);
+    }
+
+    public ZCoordinate resolve(ZDirection direction) {
+        return resolve(direction.x, direction.y, direction.z);
     }
 
     /**
@@ -99,6 +104,17 @@ public class ZCoordinate {
 
     public ZCoordinate subtract(ZCoordinate other) {
         return ZCoordinate.of(this.x - other.x, this.y - other.y, this.z - other.z);
+    }
+
+    /**
+     * Returns the value on the z direction axis.
+     */
+    public int getAxis(ZDirection.Axis axis) {
+        return switch (axis) {
+            case X -> this.x;
+            case Y -> this.y;
+            case Z -> this.z;
+        };
     }
 
     @Override

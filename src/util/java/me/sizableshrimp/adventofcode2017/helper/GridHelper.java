@@ -23,6 +23,7 @@
 
 package me.sizableshrimp.adventofcode2017.helper;
 
+import it.unimi.dsi.fastutil.chars.Char2BooleanFunction;
 import it.unimi.dsi.fastutil.chars.Char2CharFunction;
 import it.unimi.dsi.fastutil.chars.Char2IntFunction;
 import it.unimi.dsi.fastutil.chars.Char2LongFunction;
@@ -35,7 +36,9 @@ import me.sizableshrimp.adventofcode2017.templates.EnumState;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GridHelper {
     /**
@@ -54,6 +57,20 @@ public class GridHelper {
     public static <T> T[][] convert(T[][] grid, List<String> lines, Char2ObjectFunction<T> func) {
         convert(lines, (y, x, c) -> grid[y][x] = func.get(c));
         return grid;
+    }
+
+    public static Set<Coordinate> convertToSet(List<String> lines, Char2BooleanFunction func) {
+        Set<Coordinate> coords = new HashSet<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++) {
+                if (func.get(line.charAt(x)))
+                    coords.add(Coordinate.of(x, y));
+            }
+        }
+
+        return coords;
     }
 
     private static void convert(List<String> lines, GridConsumer consumer) {
@@ -84,6 +101,19 @@ public class GridHelper {
         return reflected;
     }
 
+    /**
+     * Requires all coordinates to be positive.
+     * Returns all positive coordinates.
+     */
+    public static Set<Coordinate> reflectY(Set<Coordinate> coords, int size) {
+        Set<Coordinate> reflected = new HashSet<>();
+        for (Coordinate coord : coords) {
+            reflected.add(Coordinate.of(coord.x, size - coord.y - 1));
+        }
+
+        return reflected;
+    }
+
     public static <T> T[][] reflectX(GridFactory<T[][]> generator, T[][] grid) {
         int yLength = grid.length;
         int xLength = grid[0].length;
@@ -96,10 +126,29 @@ public class GridHelper {
         return reflected;
     }
 
-    public static <T> T[][] rotate(GridFactory<T[][]> generator, T[][] grid, int degrees) {
+    /**
+     * Requires all coordinates to be positive.
+     * Returns all positive coordinates.
+     */
+    public static Set<Coordinate> reflectX(Set<Coordinate> coords, int size) {
+        Set<Coordinate> reflected = new HashSet<>();
+        for (Coordinate coord : coords) {
+            reflected.add(Coordinate.of(size - coord.x - 1, coord.y));
+        }
+
+        return reflected;
+    }
+
+    private static int wrapDegrees(int degrees) {
         if (degrees < 0)
             degrees = 360 + degrees;
-        degrees %= 360;
+
+        return degrees % 360;
+    }
+
+
+    public static <T> T[][] rotate(GridFactory<T[][]> generator, T[][] grid, int degrees) {
+        degrees = wrapDegrees(degrees);
 
         int yLength = grid.length;
         int xLength = grid[0].length;
@@ -113,6 +162,25 @@ public class GridHelper {
             grid = rotated;
         }
         return grid;
+    }
+
+    /**
+     * Rotates clockwise by the specified amount.
+     * Degrees must be a multiple of 90.
+     * Requires all coordinates to be positive.
+     */
+    public static Set<Coordinate> rotate(Set<Coordinate> coords, int yLength, int degrees) {
+        degrees = wrapDegrees(degrees);
+
+        for (int i = 0; i < degrees; i += 90) {
+            Set<Coordinate> rotated = new HashSet<>();
+            for (Coordinate coord : coords) {
+                rotated.add(Coordinate.of(yLength - coord.y - 1, coord.x));
+            }
+            coords = rotated;
+        }
+
+        return coords;
     }
 
     public static boolean[][] convertBool(List<String> lines, CharPredicate pred) {

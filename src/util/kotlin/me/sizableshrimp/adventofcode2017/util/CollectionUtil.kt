@@ -252,3 +252,19 @@ fun IntRange.toIntList(): IntList = IntArrayList().also { for (i in this) it.add
 fun LongRange.toLongList(): LongList = LongArrayList().also { for (i in this) it.add(i) }
 
 fun CharRange.toCharList(): CharList = CharArrayList().also { for (i in this) it.add(i) }
+
+fun Array<IntArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<LongArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<CharArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<ByteArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<DoubleArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<FloatArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+fun Array<BooleanArray>.deepCopy() = Array(this.size) { this[it].copyOf() }
+
+inline fun <reified T> Array<Array<T>>.deepCopy() = Array(this.size) { this[it].copyOf() }

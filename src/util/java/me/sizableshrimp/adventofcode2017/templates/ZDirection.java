@@ -1,5 +1,5 @@
 /*
- * AdventOfCode2022
+ * AdventOfCode2017
  * Copyright (C) 2022 SizableShrimp
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
